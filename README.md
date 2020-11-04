@@ -1,7 +1,16 @@
-# felis-catus
-for study
-required lib
+### felis-catus is scientific name of cat.
+> Let's reduce on work by well-trained catty!<br>
+> ![cat](etc/cat.gif) <br>
+> . <br>
+> . <br>
+> . <br>
+> actually, it has nothing to do with picture(.gif) above. <br>
+> repository just for study 'deep-learning'
 
-pip install opencv-python, numpy, tqdm, Image(for PIL), matplotlib
-
-conda install -c conda-forge notebook
+### required lib
+* notebook
+* opencv-python
+* numpy
+* matplotlib
+* Image
+* tqdm
