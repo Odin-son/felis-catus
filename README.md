@@ -1,13 +1,11 @@
-### felis-catus is scientific name of cat.
-> Let's reduce on work by well-trained catty!<br>
+### Editorial,
+> Felis-catus is scientific name of cat. <br>
 > ![cat](etc/cat.gif) <br>
-> . <br>
-> . <br>
-> . <br>
-> actually, it has nothing to do with picture(.gif) above. <br>
-> repository just for study 'deep-learning'
+> The intelligence of cat is known to be about two to three years old in human terms.
+> I think i'm only two or three years old in the deep-learning part.
+> Let's assiduously reduce on work by well-trained cat.<br>
 
-### required lib
+#### Required lib
 * notebook
 * opencv-python
 * numpy
