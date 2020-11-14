@@ -23,6 +23,7 @@
 - 둘은 분명 다른 파이프라인을 가지고 있지만, FCOS에서 이야기하는 포인트가 RetinaNet의 anchor-box의 중심점과 같다. (편의상 FCOS 에서 찾는 해당 포인트를 anchor point라 지칭)
 
 - difference)
+
 |Method|# of anchor|Def. pos/neg sample|regress starting status|
 |:---:|:---:|:---:|:---:|
 |RetinaNet|several per loc.|resort by IOU for pos and neg| regress the obj. bounding box from preset anchor box|
