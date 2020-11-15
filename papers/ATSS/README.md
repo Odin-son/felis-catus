@@ -102,3 +102,18 @@
    * 무튼, 시작점은 그리 중요하지않음
  * Conclusion
    * 중요한 차이점은 positive/negative training sample을 어떻게 정의하는지가 중요함 (그래서 연구가치가 있음)
+
+##### Adaptive Training Sample Selection
+object detector 학습시에 positive/negative sample을 분류하고, positive sample을 regression에 써야된다.
+ATSS는 하이퍼파라미터도 없고..robust하다.
+###### 4.1 Description
+ * 이전에 방법은 틀렸다! 하이퍼파라미터에 의존적이고 방치된 오브젝트도 많다!
+ * 오브젝트의 통계적인 특성에 따라 분류할꺼...
+   * 각 피라미드 레벨에서 L2 distance 기준으로 가장 근접한 k 앵커박스를 선택 (Cg는 k x L 만큼의 후보군을 가짐)
+   * g와 후보군 간의 IOU를 구한다 = Dg = IOU(g,Cg)
+   * mg 는 Dg의 평균
+   * vg 는 Dg의 표준편차
+   * tg 는 mg+vg
+   * 결국 tg가 IOU(c,g)의 threshold = P
+   * 그리고 N은 A-P(나머지란 소리지)
+ *
