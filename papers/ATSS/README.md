@@ -57,5 +57,35 @@
    * CSP는 보행자 검출을 위해 오브젝트 박스의 중심점과 그 비율을 조정했음 (aspect ratio 를 비율이라고 했음)
    * FoveaBox는 오브젝트의 middle part를 positive라고 보고 4 거리를 측정했음
  * (결국, 각각의 방법들은 비슷한 연구를 했다..이말이 하고 싶은것 같다 왜냐면 related work니까)
+  
+##### Difference Analysis of Anchor-based and Anchor-free Detection
+(집요하게 RetinaNet이랑 FCOS를 가지고 차이를 분석해보려 한다)
+
+###### 3.1 Experiment Setting
+ * Dataset
+   * MS COCO
+   
+   |Category|# of imgs|split|
+   |:---:|:---:|:---:|
+   |Train|115K|trainval35k|
+   |Valid.|5K|minival|
  
+ * Training Detail
+   * pretrain 모델로 ResNet-50을 사용하고, 5레벨 특징 피라미드 구조를 백본으로 사용 (what is backbone...)
+   * RetinaNet의 경우, 5-레벨 형상 피라미드의 각 층은 8S(stride) anchor size임 (anchor box 크기 말하는듯)
+   * iter 90K, 0.9 momentum, 0.0001 가중치 감소와 16배치사이즈, learning-rate 0.01, 60K,80K 에서 0.1로 감소 (왜 감소지..0.01 -> 0.1인데)
+ * Inference Detail
+   * 학습과 같이 입력 영상 사이즈를 조정하고 predict.
+   * 그 후엔 0.05 로 배경 바운딩 박스를 제거하고, feature pyramid당 상위 1000개를 뽑음
+   * NMS(non-maximum suppression)는 클래스당 IOU 0.6을 적용하여 이미지당 상위 100개 탐지를 함
  
+###### 3.2 Inconsistency Removal
+ * RetinaNet에서 위치당 한개 정방 앵커박스를 사용하면 결과가 FCOS랑 거의 같다
+ * 하지만, FCOS는 AP 성능이 RetinaNet을 능가하는데, 그 차이 중 GIoU 손실함수나 일반적인 개선사항이 일부를 차지함 (저런 방법들을 사용해서 높다고 주장함)
+ * (뭘 개선했나..GroupNorm, GIoU regression loss func, limiting pos samples in the GT 등)
+ * 이러한 개선사항은 앵커 기반 검출기에도 적용될 수 있으므로, 이는 본질적인 차이는 아니다.
+ * 따라서, 이런 구현상 불일치를 배제하고 한다. 이런걸 더해도 0.8% 밖에 차이가 안난다.
+
+###### 3.3 Essential Difference
+ * Classification
+   * 
