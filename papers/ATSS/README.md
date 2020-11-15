@@ -80,6 +80,7 @@
    * NMS(non-maximum suppression)는 클래스당 IOU 0.6을 적용하여 이미지당 상위 100개 탐지를 함
  
 ###### 3.2 Inconsistency Removal
+ * ![table1](https://user-images.githubusercontent.com/33476636/99183370-8b380900-277e-11eb-8248-19d5d56ca1dc.png)
  * RetinaNet에서 위치당 한개 정방 앵커박스를 사용하면 결과가 FCOS랑 거의 같다
  * 하지만, FCOS는 AP 성능이 RetinaNet을 능가하는데, 그 차이 중 GIoU 손실함수나 일반적인 개선사항이 일부를 차지함 (저런 방법들을 사용해서 높다고 주장함)
  * (뭘 개선했나..GroupNorm, GIoU regression loss func, limiting pos samples in the GT 등)
@@ -88,4 +89,16 @@
 
 ###### 3.3 Essential Difference
  * Classification
-   * 
+   * ![fig1](https://user-images.githubusercontent.com/33476636/99183325-34caca80-277e-11eb-9f84-3350b756cf5e.png)
+   * RetinaNet은 IOU를 사용하여 다른 피라미드 레벨의 앵커박스를 positive, negative로 나눔, 다른건 학습 과정 중 무시 (anchor box)
+   * FCOS는 다른 피라미드 레벨에서 spatial로 후보군을 정하고, scale constraint로 찾음. (anchor point)
+   * (비슷하지만 살짝 다름)
+   * ![table2](https://user-images.githubusercontent.com/33476636/99183592-52009880-2780-11eb-9868-6d107aee748b.png)
+   * 위치당 앵커가 하나인 RetinaNet은 IOU 대신 FCOS처럼 하면 그 0.8%를 채울 수 있다. 그리고 FCOS를 IOU 써서 샘플을 선택하면 36.9%로 떨어진다..(결국 이 데이터 샘플링 과정이 중요함)
+   * 결국 이런 데이터 샘플에 대한 정의를 하는게 중요한 차이점이란거다. (between anchor-based and anchor-free)
+ * Regression
+   * ![fig2](https://user-images.githubusercontent.com/33476636/99183570-3d240500-2780-11eb-904f-aef7dc741a33.png)
+   * RetinaNet은 anchor box 로 부터 시작하고, FCOS는 point로 부터 시작함
+   * 무튼, 시작점은 그리 중요하지않음
+ * Conclusion
+   * 중요한 차이점은 positive/negative training sample을 어떻게 정의하는지가 중요함 (그래서 연구가치가 있음)
