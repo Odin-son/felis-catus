@@ -126,10 +126,30 @@ ATSS는 하이퍼파라미터도 없고..robust하다.
  * 5.하이퍼파라미터 ㄴㄴ
    * 이 다음에 하는 실험이 그걸 증명해줌..k가 거의 의미가 없대
 ###### 4.2 Verification
- 
  * Anchor-based RetinaNet
  * Anchor-free FCOS
    * spatial dimension, scale dimension을 각각 바꿔도 결국 제안하는 방법이 좋았다는 것을 나타냄
 ###### 4.3 Analysis
+ * ![table4](https://user-images.githubusercontent.com/33476636/99256791-48972f00-2859-11eb-9c3d-9808765a28b4.png)
  * 하이퍼 파라미터 k에 대한 이야기를 안할 수 가 없는데, 무관하다는걸 증명하기 위해 k를 여러가지를 가지고 실험을 했음
- 
+ * 너무 큰 k는 낮은 퀄리티의 샘플도 후보군으로 선택할테니 결과가 안좋은것 같고
+ * 너무 작은 k는 적절한 후보군을 찾지못해 통계적으로 << 봤을때 떨어지는게 당연
+ (이게 무관하다는 입증이다)
+ * 거기에 anchor size 이야기도 해야되는데, 크기를 바꿔보고 비율을 바꿔봤는데...무관하다
+###### 4.4 Comparison
+ * FCOS, FOCAL-LOSS 방법들과 같이 multi-scale 학습을 위해 640~800정도 사이에 스케일을 줄여서 학습에 사용한다.
+ * 게다가 18만회 2번, 학습률 감소는 12만, 16만회 했음
+ * 백본 네트워크로 ResNet-101을 사용했음
+ * 마지막 층에는 DCN을 사용함
+ * 단일 모델, 단일 스케일 테스트에서는 47.7% / 멀티스케일은 50.7% AP 달성
+###### 4.5 Discussion
+ * 실제로는 RetinaNet은 location 당 9 anchor를 가진다.
+ * 이 부분에서 실험을 해보면 RetinaNet(#A=9)와 table1의 방법을 하면 더 향상된다.
+   * IoU기반 샘플 선택에서는 위치당 anchor를 많이 타일링하는게 효과적이라는 증명
+ * 결국 지금 제안한 방법에서는 위치당 anchor를 타일링하는건 의미가 없는 작업이다.
+
+##### Conclusion
+ * 오브젝트 디텍션의 학습 과정에서 positive/negative sample을 선택하는게 중요하다는 것을 보였다
+ * 오브젝트의 통계적인 특성에 따라 학습 데이터를 positive와 negative로 나눈다
+ * 또한, 위치당 다중 앵커를 타일링하는건 불필요한 작업이다
+ * MS COCO dataset으로, 특별히 다른 작업없이 분류만으로 성능 도달을 증명했다.
