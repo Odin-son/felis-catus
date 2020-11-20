@@ -1,0 +1,3 @@
+##### two-stage detector
+selective search 이후 R-CNN의 기술은 two-stage에 근간이 되는 논문임.
+보통 R-CNN 계열의 모델들은 region proposal stage(1), classification stage(1)가 되어있어서 two-stage detector라 불림
