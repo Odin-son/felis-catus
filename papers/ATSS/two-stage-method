@@ -9,4 +9,37 @@ selective search를 딥러닝에 적용한 알고리즘. ILSVRC 2012 의 AlexNet
 - 3. ROI를 CNN에 넣어 feature 추출
 - 4. 3에서 추출된 걸 SVM에 넣어 classification
 - 5. 3에서 추출된 걸 regression에 넣어 bbox 예측
-!.[R-CNN].(https://user-images.githubusercontent.com/31475037/74123157-088f8580-4c11-11ea-8555-39cfb5d770c0.gif)
+
+![R-CNN](https://user-images.githubusercontent.com/31475037/74123157-088f8580-4c11-11ea-8555-39cfb5d770c0.gif)
+
+- 문제점 : end-to-end 방식이 아님(따로따로 학습해야함; CNN, classifier, bbox regression), 시간이 너무 오래걸림
+
+##### Faster R-CNN
+학습과는 별개로 selective search에서 얻어진 2000개를 넣는게 아니라 이미지 통채로 CNN에 넣음
+따라서, R-CNN에서 CNN 2000번 하던걸 한번으로 줄임
+
+Faster R-CNN ; ROI projection, SPPNet
+
+####### ROI projection
+feature map 상에 있는 ROI를 구하기 위한 프로세스
+- 이미지에 대해 selective search 를 통해 ROI 획득
+- 구해진 ROI 좌표값을 feature map에 projection -> feature map 상에 ROI
+(이때 feature map과 입력의 해상도는 동일)
+![ROI](https://user-images.githubusercontent.com/31475037/74294049-1283c680-4d80-11ea-8c68-fa1b84f52bd3.png)
+이러한 ROI projection이 가능한 이유는 CNN을 통해 추출된 feature map에 이미지와 같이 물체의 중요한 정보가 담겨있기 때문
+
+####### SPP(Spatial Pyramid Pooling)
+SPPNet은 R-CNN에서 resize(wraping)하는 과정을 SPP를 이용해 고정크기로 바꿈. 
+SPP layer는 다양한 크기의 입력으로 부터 일정한 크기의 feature를 추출가능.
+- 이미지를 일정 개수 지역으로 나눈 뒤, 각 지역에 BOW(Bag-of-words)를 적용하여 local 정보를 유지 (무슨소리지..)
+암튼, SPP layer는 feature map 상의 특정 영역에 대해 고정된 개수의 영역으로 나눈 뒤, 
+각 영역에 대해 max-pooling/average pooling을 취함으로써 고정된 길이의 feature를 추출
+![SPP](https://1.bp.blogspot.com/-4XYvgIQ6T8E/VZEPbZyYo7I/AAAAAAAABHE/D_HccWnYK6Q/s1600/s4.jpg)
+Faster R-CNN에서는 이런 SPP layer의 single level pyramid만 사용하여 이를 ROI layer 라고 명명함
+
+따라서, Faster R-CNN의 과정은
+- 전체 이미지를 CNN에 넣어 feature 추출 (한번만)
+- ROI projection을 통해 feature map 상의 ROI를 구함
+- 이 ROI는 ROI layer를 통과한후 일정 크기의 feature가 됌
+- 추출된 이 feature는 fc layer(fully connected layer)를 통과해 나온 뒤, classification, bbox regression
+(이때, end-to-end)
