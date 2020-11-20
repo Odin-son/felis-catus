@@ -1,3 +1,12 @@
 ##### two-stage detector
 selective search 이후 R-CNN의 기술은 two-stage에 근간이 되는 논문임.
 보통 R-CNN 계열의 모델들은 region proposal stage(1), classification stage(1)가 되어있어서 two-stage detector라 불림
+
+##### R-CNN
+selective search를 딥러닝에 적용한 알고리즘. ILSVRC 2012 의 AlexNet을 CNN 모델로 사용하여, transfer learning (pretrained AlexNet)
+- 1. Selective search 를 통해 ROI를 약 2000개 가량 추출
+- 2. ROI 크기를 조절해 동일한 사이즈로 만듦
+- 3. ROI를 CNN에 넣어 feature 추출
+- 4. 3에서 추출된 걸 SVM에 넣어 classification
+- 5. 3에서 추출된 걸 regression에 넣어 bbox 예측
+!.[R-CNN].(https://user-images.githubusercontent.com/31475037/74123157-088f8580-4c11-11ea-8555-39cfb5d770c0.gif)
