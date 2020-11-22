@@ -102,7 +102,7 @@ positive/negative : GT box IoU 0.7 이상/ 0.3 이하
 
 - 1x1 conv 로 채널을 맞춰줌
 
-<img src="https://user-images.githubusercontent.com/31475037/74509754-9e931b00-4f45-11ea-858f-b77b08141d3d.png" width="60%">
+<img src="https://user-images.githubusercontent.com/31475037/74509754-9e931b00-4f45-11ea-858f-b77b08141d3d.png" width="40%">
 
 
 
