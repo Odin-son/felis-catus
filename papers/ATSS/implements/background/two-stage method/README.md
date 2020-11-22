@@ -94,7 +94,7 @@ positive/negative : GT box IoU 0.7 이상/ 0.3 이하
 - HOG와 SIFT 같은 feature pyramid를 이용한 방법을 딥러닝에 적용시킨 것. 각 scale 마다 CNN 으로 feature 추출, 마지막 feature map에서 prediction
 - Bottom-up 방식으로 이미지를 본다고도 불림
 
-<img src="https://user-images.githubusercontent.com/31475037/74511677-def49800-4f49-11ea-96ff-9ed82d42dc8e.png" width="50%">
+<img src="https://user-images.githubusercontent.com/31475037/74511677-def49800-4f49-11ea-96ff-9ed82d42dc8e.png" width="30%">
 
 - Bottom-up(픽셀부터 특징을 계산) + Top-down (이미지 전체를 보고 원하는 특징을 찾음)
  
@@ -102,7 +102,7 @@ positive/negative : GT box IoU 0.7 이상/ 0.3 이하
 
 - 1x1 conv 로 채널을 맞춰줌
 
-<img src="https://user-images.githubusercontent.com/31475037/74509754-9e931b00-4f45-11ea-858f-b77b08141d3d.png" width="80%">
+<img src="https://user-images.githubusercontent.com/31475037/74509754-9e931b00-4f45-11ea-858f-b77b08141d3d.png" width="60%">
 
 
 
