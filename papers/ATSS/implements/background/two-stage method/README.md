@@ -10,7 +10,7 @@ selective search를 딥러닝에 적용한 알고리즘. ILSVRC 2012 의 AlexNet
 - 4. 3에서 추출된 걸 SVM에 넣어 classification
 - 5. 3에서 추출된 걸 regression에 넣어 bbox 예측
 
-![R-CNN](https://user-images.githubusercontent.com/31475037/74123157-088f8580-4c11-11ea-8555-39cfb5d770c0.gif)
+<img src="https://user-images.githubusercontent.com/31475037/74123157-088f8580-4c11-11ea-8555-39cfb5d770c0.gif" width="50%" height="50%">
 
 - 문제점 : end-to-end 방식이 아님(따로따로 학습해야함; CNN, classifier, bbox regression), 시간이 너무 오래걸림
 
@@ -25,7 +25,9 @@ feature map 상에 있는 ROI를 구하기 위한 프로세스
 - 이미지에 대해 selective search 를 통해 ROI 획득
 - 구해진 ROI 좌표값을 feature map에 projection -> feature map 상에 ROI
 (이때 feature map과 입력의 해상도는 동일)
-![ROI](https://user-images.githubusercontent.com/31475037/74294049-1283c680-4d80-11ea-8c68-fa1b84f52bd3.png)
+
+<img src="https://user-images.githubusercontent.com/31475037/74294049-1283c680-4d80-11ea-8c68-fa1b84f52bd3.png" width="50%" height="50%">
+
 이러한 ROI projection이 가능한 이유는 CNN을 통해 추출된 feature map에 이미지와 같이 물체의 중요한 정보가 담겨있기 때문
 
 ####### SPP(Spatial Pyramid Pooling)
@@ -34,7 +36,7 @@ SPP layer는 다양한 크기의 입력으로 부터 일정한 크기의 feature
 - 이미지를 일정 개수 지역으로 나눈 뒤, 각 지역에 BOW(Bag-of-words)를 적용하여 local 정보를 유지 (무슨소리지..)
 암튼, SPP layer는 feature map 상의 특정 영역에 대해 고정된 개수의 영역으로 나눈 뒤, 
 각 영역에 대해 max-pooling/average pooling을 취함으로써 고정된 길이의 feature를 추출
-![SPP](https://1.bp.blogspot.com/-4XYvgIQ6T8E/VZEPbZyYo7I/AAAAAAAABHE/D_HccWnYK6Q/s1600/s4.jpg)
+<img src="https://1.bp.blogspot.com/-4XYvgIQ6T8E/VZEPbZyYo7I/AAAAAAAABHE/D_HccWnYK6Q/s1600/s4.jpg" width="50%" height="50%">
 Fast R-CNN에서는 이런 SPP layer의 single level pyramid만 사용하여 이를 ROI layer 라고 명명함
 
 따라서, Faster R-CNN의 과정은
@@ -52,19 +54,25 @@ RPN은 내부 feature map의 영역 내에서도 충분히 객체의 위치,특�
 RPN에서 각각의 영역을 어떻게 학습할지에 대해 도입한 개념이 anchor box,
 anchor를 중심으로 anchor box를 설정해 feature map에서 영역을 설정함.
 - anchor box를 사용하면 transaltion-invariance, reduce model size
-![anchorbox](https://user-images.githubusercontent.com/31475037/74295754-4ca39700-4d85-11ea-96ef-99320b686da5.png)
+
+<img src="https://user-images.githubusercontent.com/31475037/74295754-4ca39700-4d85-11ea-96ef-99320b686da5.png" width="50%" height="50%">
+
 이 이전에는 translation-invariance를 하기 위해 scale도 조정해보고, filter size도 이용해보고..
-![translation-invariance](https://user-images.githubusercontent.com/31475037/74295756-4ca39700-4d85-11ea-9a1b-0f9a7fe64e1d.png)
+
+<img src="https://user-images.githubusercontent.com/31475037/74295756-4ca39700-4d85-11ea-9a1b-0f9a7fe64e1d.png" width="50%" height="50%">
+
 RPN의 목적은 객체를 잘 분류하는게 아니라, 객체가 있는 영역인 positive anchor box를 잘 찾는것.
 positive/negative : GT box IoU 0.7 이상/ 0.3 이하
 0.3~0.7은 사용하지않음
 실제 사용한 앵커박스는 위치당 scale 3 ratio 3 = 9개
-![anchor](https://user-images.githubusercontent.com/31475037/74295761-4dd4c400-4d85-11ea-8a26-5387a5a063b8.png)
+
+<img src="https://user-images.githubusercontent.com/31475037/74295761-4dd4c400-4d85-11ea-8a26-5387a5a063b8.png" width="50%" height="50%">
+
 한 이미지당 앵커를 256개 샘플링함 -> 1:1 비율로 positive/negative로 RPN 에 넣어주면, 해당 anchor에 object가 있는지 이진분류하는 classifer를 학습하고
 앵커 내 물체의 위치를 찾는 bbox regression을 해줌. (만약 positive anchor 갯수가 128개보다 적을경우, 빈자리는 negative anchor sample로 채움)
 - bbox regression은 smooth L1 Loss
 detector 학습
-![detector](https://user-images.githubusercontent.com/31475037/74295747-4ad9d380-4d85-11ea-9be8-f6e63e901f6f.png)
+<img src"https://user-images.githubusercontent.com/31475037/74295747-4ad9d380-4d85-11ea-9be8-f6e63e901f6f.png" width="50%" height="50%">
 
 - RPN과 CNN만 따로 학습
 - RPN과 CNN은 freeze한채로 detector만 학습
