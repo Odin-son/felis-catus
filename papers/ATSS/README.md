@@ -19,7 +19,7 @@
   * 둘은 분명 다른 파이프라인을 가지고 있지만, FCOS에서 이야기하는 포인트가 RetinaNet의 anchor-box의 중심점과 같다. (편의상 FCOS 에서 찾는 해당 포인트를 anchor point라 지칭)
 * difference)
 
-|method|# of anchor|training sample positive/negative|regression starting status|
+|method|# of anchor|definition of positive/negative sample|regression starting status|
 |:---:|:---:|:---:|:---:|
 |RetinaNet|several per location|resorting by IoU|the center of anchor box|
 |FCOS|one per location|spatial and scale constraints|*anchor point|
