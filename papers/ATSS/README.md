@@ -21,7 +21,7 @@
 
 |method|# of anchor|training sample positive/negative|regress starting status|
 |:---:|:---:|:---:|:---:|
-|RetinaNet|several per location|resort by IoU|the center of anchor box|
+|RetinaNet|several per location|resorting by IoU|the center of anchor box|
 |FCOS|one per location|spatial and scale constraints|*anchor point|
 
   * 결론적으로는 두번째 항목인 pos/neg sample에 대한 정의를 같게한다면 결과는 크게 차이나지않는다는 점. 
