@@ -4,7 +4,6 @@ import os
 from .utility import *
 from torch.utils.data import dataloader
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 if __name__ == "__main__":
     path = os.path.join(ROOT, 'dataset')

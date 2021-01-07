@@ -1,9 +1,11 @@
 import numpy as np
+import os
 
 from PIL import Image
 from glob import glob
 from torch.utils.data import Dataset
 
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class Ex1Dataset(Dataset):
     def __init__(self, root_dir, size=(224,224)):
